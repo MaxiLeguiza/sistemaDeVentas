@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Proveedor {
+  rut       String     @id @unique
+  nombre    String
+  email     String     @unique
+  telefono  String     @unique
+  paginaWeb String?
+  Producto  Producto[]
+
+  @@map("proveedores")
+}
+
+model Cliente {
+  rut       String            @id @unique
+  nombre    String
+  calle     String
+  numero    String
+  comuna    String?
+  ciudad    String
+  telefonos TelefonoCliente[]
+  venta     Venta[]
+
+  @@map("clientes")
+}
+
+model TelefonoCliente {
+  id         Int     @id @default(autoincrement())
+  numero     String
+  clienteRut String
+  cliente    Cliente @relation(fields: [clienteRut], references: [rut], onDelete: Cascade)
+
+  @@map("telefonos_clientes")
+}
+
+model Producto {
+  id           Int            @id @default(autoincrement())
+  nombre       String
+  precioActual Float
+  stock        Int
+  proveedor    Proveedor      @relation(fields: [proveedorRut], references: [rut])
+  proveedorRut String
+  categoria    Categoria      @relation(fields: [categoriaId], references: [id])
+  categoriaId  Int
+  detalleVenta DetalleVenta[]
+
+  @@map("productos")
+}
+
+model Categoria {
+  id          Int        @id @default(autoincrement())
+  nombre      String
+  descripcion String
+  productos   Producto[]
+
+  @@map("categorias")
+}
+
+model Venta {
+  id           Int            @id @default(autoincrement())
+  clienteRut   String
+  cliente      Cliente        @relation(fields: [clienteRut], references: [rut], onDelete: Cascade)
+  fecha        DateTime       @default(now())
+  descuento    Float
+  total        Float
+  detalleVenta DetalleVenta[]
+
+  @@map("ventas")
+}
+
+model DetalleVenta {
+  id          Int      @id @default(autoincrement())
+  ventaId     Int
+  productoId  Int
+  precioVenta Float
+  cantidad    Int
+  subtotal    Float
+  venta       Venta    @relation(fields: [ventaId], references: [id], onDelete: Cascade)
+  producto    Producto @relation(fields: [productoId], references: [id], onDelete: Cascade)
+
+  @@map("detalles_venta")
+}
