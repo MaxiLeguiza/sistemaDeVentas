@@ -4,21 +4,20 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
-generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/prisma"
-}
-
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
+generator client {
+  provider = "prisma-client-js"
+}
+
 model Proveedor{
   rut       String   @id @unique
   nombre    String
-  email     String   @unique
-  telefono  String   @unique
+  direccion String
+  telefono  Int   @unique
   paginaWeb String?
   Producto Producto[]
 
@@ -29,7 +28,7 @@ model Cliente{
   rut       String   @id @unique
   nombre    String
   calle     String   
-  numero    String
+  numero    Int 
   comuna    String?
   ciudad    String   
   telefonos  TelefonoCliente[]
@@ -40,8 +39,8 @@ model Cliente{
 
 model TelefonoCliente{
   id        Int      @id @default(autoincrement())
-  numero    String
-  clienteRut String
+  numero    String 
+  clienteRut String 
   cliente   Cliente @relation(fields: [clienteRut], references: [rut], onDelete: Cascade)
 
   @@map("telefonos_clientes")
