@@ -1,10 +1,16 @@
 import { Router } from "express";
+import {
+    obtenerCategorias,
+    crearCategoria,
+    actualizarCategoria,
+    eliminarCategoria
+} from "../controllers/categorias.controller.js";
 
 const router = Router();
 
-router.get("/categorias", async (req, res) => {
-    const categorias = await prisma.categoria.findMany();
-    res.json(categorias);
-});
+router.get("/", obtenerCategorias);
+router.post("/", crearCategoria);
+router.put("/:id", actualizarCategoria);
+router.delete("/:id", eliminarCategoria);
 
 export default router;

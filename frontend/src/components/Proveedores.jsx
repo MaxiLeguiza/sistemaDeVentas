@@ -165,7 +165,7 @@ function Proveedores() {
         ) : (
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
-              <tr style={{ background: "#f5f5f5" }}>
+              <tr style={{ background: "#f5f5f5", color: "black" }}>
                 <th style={{ border: "1px solid #ddd", padding: 8 }}>RUT</th>
                 <th style={{ border: "1px solid #ddd", padding: 8 }}>Nombre</th>
                 <th style={{ border: "1px solid #ddd", padding: 8 }}>Dirección</th>
