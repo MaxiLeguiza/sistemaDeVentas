@@ -17,6 +17,8 @@ function Ventas() {
     ],
   });
 
+  const url = "http://localhost:3000"; // Cambia esto por la URL de tu backend
+
   // Simulación de fetch de clientes y productos (reemplaza por tu fetch real)
   useEffect(() => {
     // fetch("URL_DE_TU_BACKEND/clientes")
@@ -28,14 +30,9 @@ function Ventas() {
       { rut: "11223344-5", nombre: "Carlos Ruiz" },
     ]);
 
-    // fetch("URL_DE_TU_BACKEND/productos")
-    //   .then(res => res.json())
-    //   .then(data => setProductos(data));
-    setProductos([
-      { id: "P001", nombre: "Producto 1", precio: 100 },
-      { id: "P002", nombre: "Producto 2", precio: 200 },
-      { id: "P003", nombre: "Producto 3", precio: 300 },
-    ]);
+    fetch( `${url}/productos`)
+      .then(res => res.json())
+      .then(data => setProductos(data));
   }, []);
 
   const calcularTotal = () =>
