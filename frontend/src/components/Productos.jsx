@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 function Productos() {
   const [producto, setProducto] = useState({
-    id: "",
     nombre: "",
     precio: "",
     stock: "",
@@ -23,7 +22,6 @@ function Productos() {
     <form onSubmit={handleSubmit} style={{ maxWidth: 400, margin: "0 auto" }}>
       <h2>Registrar Producto</h2>
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-        <input name="id" placeholder="ID" value={producto.id} onChange={handleChange} required />
         <input name="nombre" placeholder="Nombre" value={producto.nombre} onChange={handleChange} required />
         <input name="precio" placeholder="Precio Actual" type="number" value={producto.precio} onChange={handleChange} required />
         <input name="stock" placeholder="Stock Disponible" type="number" value={producto.stock} onChange={handleChange} required />

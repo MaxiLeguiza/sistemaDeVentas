@@ -18,12 +18,20 @@ function Menu() {
 
   return (
     <div style={{ display: "flex", minHeight: "60vh" }}>
-      {/* Contenido/Formulario a la izquierda */}
-      <div style={{ flex: 1, padding: "24px 24px 24px 0" }}>
-        {opciones.find((op) => op.key === seleccion)?.component}
-      </div>
-      {/* Menú a la derecha */}
-      <div style={{ width: 180, borderLeft: "1px solid #ddd", padding: 24, display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
+      {/* Menú a la izquierda */}
+      <div
+        style={{
+          width: 200,
+          minWidth: 200,
+          borderRight: "1px solid #ddd",
+          padding: 24,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          background: "#5761DC",
+          minHeight: "100%",
+        }}
+      >
         {opciones.map((op) => (
           <button
             key={op.key}
@@ -37,12 +45,19 @@ function Menu() {
               borderRadius: "4px",
               cursor: "pointer",
               width: "100%",
-              textAlign: "center"
+              textAlign: "left",
+              fontWeight: "bold",
+              fontSize: "1rem",
+              transition: "background 0.2s",
             }}
           >
             {op.label}
           </button>
         ))}
+      </div>
+      {/* Contenido/Formulario a la derecha */}
+      <div style={{ flex: 1, padding: "24px" }}>
+        {opciones.find((op) => op.key === seleccion)?.component}
       </div>
     </div>
   );

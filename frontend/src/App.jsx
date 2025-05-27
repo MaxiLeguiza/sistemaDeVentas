@@ -14,7 +14,6 @@ function App() {
       <h1>Sistemas de Ventas</h1>
        <Menu />
 
-      {/* Aquí puedes agregar los otros módulos */}
     </div>
   );
 }
